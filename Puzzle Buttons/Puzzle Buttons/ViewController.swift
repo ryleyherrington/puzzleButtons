@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var width:CGFloat = 0
     var height:CGFloat = 0
     var nonhighlighted = UIColor ( red: 0.4789, green: 0.0, blue: 0.4788, alpha: 1.0 )
-    var highlighted    = UIColor ( red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0 )
+    var highlighted    = UIColor.whiteColor()
     var onArr:[Bool] = []
     var buttonArray:[UIButton] = []
     
@@ -28,7 +28,6 @@ class ViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func createAndAddButton(index:Int, row:Int) ->UIButton{
@@ -42,8 +41,6 @@ class ViewController: UIViewController {
         button.frame = CGRectMake(x, y, w, h)
         button.backgroundColor = self.nonhighlighted
         button.accessibilityLabel = "\(index)"
-        button.titleLabel?.text = "\(index)"
-        button.titleLabel?.textColor = UIColor.whiteColor()
         button.tag = index
         button.addTarget(self, action: #selector(ViewController.buttonTouched(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -59,32 +56,38 @@ class ViewController: UIViewController {
             }
         }
     }
+   
+    func toggleButton(index:Int) {
+        print("toggle \(index)")
+    }
     
     func buttonTouched(sender:UIButton){
-        print("\(sender.tag): \(onArr[sender.tag]) ---- ")
         if sender.backgroundColor == self.nonhighlighted {
             sender.backgroundColor = self.highlighted
-            onArr[sender.tag] = true
         } else {
             sender.backgroundColor = self.nonhighlighted
-            onArr[sender.tag] = false
         }
-        print("\(sender.tag): \(onArr[sender.tag])\n")
-        if checkWin() == true {
-            let alertController = UIAlertController(title: "Congratulations!", message: "You won this round.", preferredStyle: .Alert)
-            self.presentViewController(alertController, animated: true){
-                print("Won")
-            }
-        }
+        
+        checkWin()
     }
-
-    func checkWin() -> Bool{
-        for i in onArr {
-            if i == false{
-                return false
+    
+    func checkWin() {
+        for b in self.buttonArray {
+            if b.backgroundColor != UIColor.whiteColor(){
+                return
             }
         }
-        return true
+        
+        //They won
+        let alert = UIAlertController(title: "Congratulations",
+                                      message: "You've won this round!",
+                                      preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alert.addAction(UIAlertAction(title: "Close",
+            style: UIAlertActionStyle.Default,
+            handler: nil))
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }
 
