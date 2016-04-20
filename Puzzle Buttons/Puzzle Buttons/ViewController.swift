@@ -33,10 +33,12 @@ class ViewController: UIViewController {
     func createAndAddButton(index:Int, row:Int) ->UIButton{
         let button = UIButton(type: .System)
         
+        
         let w = (width-(10.0*(CGFloat(n)+1.0)))/CGFloat(n)
         let h = CGFloat(80)
-        let x = w*CGFloat(index%n)+CGFloat((index%n)*10)+10.0
+        let x = 10 + (10.0*(CGFloat(index%n)))+CGFloat((CGFloat(index % n)+1.0)*w) - w
         let y = CGFloat((row+1)*90)
+     print("index:\(index) \(row)\t \(x)\t \(y)")
         
         button.frame = CGRectMake(x, y, w, h)
         button.backgroundColor = self.nonhighlighted
@@ -49,26 +51,83 @@ class ViewController: UIViewController {
     }
 
     func setupButtons() {
-        for r in 0..<n {
-            for c in 0..<n {
-                self.buttonArray.append(createAndAddButton(r+c, row: r))
-                onArr.append(false)
-            }
+        for i in 0..<n*n {
+//            print("i:\(i) n=\(n), i%n = \(i%n), row=\(trunc(Double(i/n)))")
+            self.buttonArray.append(createAndAddButton(i, row: Int(trunc(Double(i/n)))))
+            onArr.append(false)
         }
     }
    
     func toggleButton(index:Int) {
         print("toggle \(index)")
+        let button = buttonArray[index]
+        if button.backgroundColor == self.nonhighlighted {
+            button.backgroundColor = self.highlighted
+            onArr[index] = true
+        } else {
+            button.backgroundColor = self.nonhighlighted
+            onArr[index] = false
+        }
+        
     }
     
     func buttonTouched(sender:UIButton){
-        if sender.backgroundColor == self.nonhighlighted {
-            sender.backgroundColor = self.highlighted
+        toggleButton(sender.tag)
+        if isLeftEdge(sender.tag) {
+            changeLeft(sender.tag)
+        } else if isRightEdge(sender.tag){
+            changeRight(sender.tag)
         } else {
-            sender.backgroundColor = self.nonhighlighted
+            changeMiddle(sender.tag)
         }
         
+        
         checkWin()
+    }
+    
+    func isLeftEdge(index:Int) -> Bool {
+        if (index%n == 0) {
+            return true
+        }
+        return false
+    }
+    
+    func changeLeft(index:Int) {
+        if index - n >= 0 {
+            toggleButton(index-n)
+        }
+        if index + n < n*n {
+            toggleButton(index+n)
+        }
+        toggleButton(index+1)
+    }
+   
+    func isRightEdge(index:Int) -> Bool {
+        if (index%n == n-1) {
+            return true
+        }
+        return false
+    }
+    
+    func changeRight(index:Int) {
+        if index - n >= 0 {
+            toggleButton(index-n)
+        }
+        if index + n < n*n {
+            toggleButton(index+n)
+        }
+        toggleButton(index-1)
+    }
+   
+    func changeMiddle(index:Int) {
+        if index - n >= 0 {
+            toggleButton(index-n)
+        }
+        if index + n < n*n {
+            toggleButton(index+n)
+        }
+        toggleButton(index-1)
+        toggleButton(index+1)
     }
     
     func checkWin() {
