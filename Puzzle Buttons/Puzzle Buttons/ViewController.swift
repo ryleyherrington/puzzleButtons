@@ -19,40 +19,59 @@ class ViewController: UIViewController {
     var buttonArray:[UIButton] = []
     
     //IBOutlets
-    @IBOutlet weak var slider: UISlider!
-    @IBOutlet weak var numLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var seg: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.width  = self.view.frame.size.width 
+        
+        self.width  = self.view.frame.size.width
         self.height = self.containerView.frame.size.height
         
         setupButtons()
-        setupSlider()
     }
-
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func setupSlider(){
-        self.slider.minimumValue = 3.0
-        self.slider.maximumValue = 5.0
-        self.slider.minimumTrackTintColor = UIColor ( red: 0.0, green: 0.6961, blue: 0.6382, alpha: 1.0 )
-        self.slider.maximumTrackTintColor = UIColor ( red: 0.0, green: 0.6961, blue: 0.6382, alpha: 1.0 )
-        self.slider.setValue(3.0, animated: true)
+    @IBAction func indexChanged(sender:UISegmentedControl) {
+        switch seg.selectedSegmentIndex {
+        case 0:
+            self.n = 3
+            
+        case 1:
+            self.n = 4
+            
+        case 2:
+            self.n = 5
+            
+        default:
+            self.n = 3
+            break;
+        }
     }
     
-    @IBAction func sliderChanged(sender: UISlider) {
-        self.numLabel.text = "\(Int(sender.value))"
+    @IBAction func resetGame(sender: AnyObject) {
+        removeAllButtons()
+        setupButtons()
     }
     
     @IBAction func startGame(sender: AnyObject) {
-        self.n = Int(self.slider.value)
         removeAllButtons()
         setupButtons()
+//        let lower = UInt32(0)
+        let upper = UInt32((n*n)-1)
+        for _ in 0...n {
+            let b = buttonArray[Int(arc4random_uniform(upper))]
+            print("Touched \(b.tag)")
+            b.sendActionsForControlEvents(.TouchUpInside)
+        }
     }
     
     func removeAllButtons() {
