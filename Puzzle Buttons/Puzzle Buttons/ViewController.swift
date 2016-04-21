@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     var highlighted    = UIColor.whiteColor()
     var onArr:[Bool] = []
     var buttonArray:[UIButton] = []
+    var movesStack:[Int] = []
     
     //IBOutlets
     @IBOutlet weak var containerView: UIView!
@@ -40,6 +41,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    //IBActions
     @IBAction func indexChanged(sender:UISegmentedControl) {
         switch seg.selectedSegmentIndex {
         case 0:
@@ -65,12 +67,20 @@ class ViewController: UIViewController {
     @IBAction func startGame(sender: AnyObject) {
         removeAllButtons()
         setupButtons()
-//        let lower = UInt32(0)
         let upper = UInt32((n*n)-1)
         for _ in 0...n {
             let b = buttonArray[Int(arc4random_uniform(upper))]
             print("Touched \(b.tag)")
             b.sendActionsForControlEvents(.TouchUpInside)
+        }
+    }
+    
+    @IBAction func undo(sender: AnyObject) {
+        if self.movesStack.last != nil {
+            let b = buttonArray[self.movesStack.last!]
+            self.movesStack.removeLast()
+            b.sendActionsForControlEvents(.TouchUpInside)
+            self.movesStack.removeLast()
         }
     }
     
@@ -81,6 +91,7 @@ class ViewController: UIViewController {
         
         self.buttonArray.removeAll()
         self.onArr.removeAll()
+        self.movesStack.removeAll()
     }
     
     func createAndAddButton(index:Int, row:Int, w:CGFloat, h:CGFloat) ->UIButton{
@@ -93,6 +104,7 @@ class ViewController: UIViewController {
         button.backgroundColor = self.nonhighlighted
         button.accessibilityLabel = "\(index)"
         button.tag = index
+        button.layer.cornerRadius = 4
         button.addTarget(self, action: #selector(ViewController.buttonTouched(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         self.containerView.addSubview(button)
@@ -123,6 +135,8 @@ class ViewController: UIViewController {
     }
     
     func buttonTouched(sender:UIButton){
+        self.movesStack.append(sender.tag)
+        
         toggleButton(sender.tag)
         if isLeftEdge(sender.tag) {
             changeLeft(sender.tag)
@@ -182,22 +196,32 @@ class ViewController: UIViewController {
     }
     
     func checkWin() {
-        for b in self.buttonArray {
-            if b.backgroundColor != UIColor.whiteColor(){
+        for b in self.onArr {
+            if b == false {
                 return
             }
         }
         
         //They won
-        let alert = UIAlertController(title: "Congratulations",
-                                      message: "You've won this round!",
-                                      preferredStyle: UIAlertControllerStyle.Alert)
         
-        alert.addAction(UIAlertAction(title: "Close",
-            style: UIAlertActionStyle.Default,
-            handler: nil))
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let winningVC = storyboard.instantiateViewControllerWithIdentifier("WinningViewController") as! WinningViewController
+        winningVC.shareText = "Hey, I just won my puzzlebuttons game in \(self.movesStack.count) moves!"
+        winningVC.movesList = "\(self.movesStack)"
+        winningVC.moves = "\(self.movesStack.count) moves!"
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        //get screenshot
+        let layer = UIApplication.sharedApplication().keyWindow!.layer
+        let scale = UIScreen.mainScreen().scale
+        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale);
+        
+        layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        winningVC.backgroundImg = screenshot
+
+        self.presentViewController(winningVC, animated: false, completion: nil)
     }
 }
 
