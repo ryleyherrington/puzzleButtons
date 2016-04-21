@@ -288,6 +288,7 @@
 				73FADC491CB9900D007A5767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
