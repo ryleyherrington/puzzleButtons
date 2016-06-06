@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     var onArr:[Bool] = []
     var buttonArray:[UIButton] = []
     var movesStack:[Int] = []
+    var shareGame:[Int]  = []
     
     //IBOutlets
     @IBOutlet weak var containerView: UIView!
@@ -26,9 +27,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        self.width  = self.view.frame.size.width
-        self.height = self.containerView.frame.size.height
+        width  = self.view.frame.size.width
+        height = self.containerView.frame.size.height
         
         setupButtons()
     }
@@ -44,24 +44,29 @@ class ViewController: UIViewController {
     //IBActions
     @IBAction func indexChanged(sender:UISegmentedControl) {
         switch seg.selectedSegmentIndex {
-        case 0:
-            self.n = 3
+        case 0: //Easy
+            n = 3
             
-        case 1:
-            self.n = 4
-            
-        case 2:
-            self.n = 5
+        case 1: //Hard
+            n = 4
             
         default:
-            self.n = 3
+            n = 3
             break;
         }
+        
+        resetHelper()
+    }
+  
+    func resetHelper(){
+        removeAllButtons()
+        setupButtons()
+        movesStack.removeAll()
+        shareGame.removeAll()
     }
     
     @IBAction func resetGame(sender: AnyObject) {
-        removeAllButtons()
-        setupButtons()
+        resetHelper()
     }
     
     @IBAction func startGame(sender: AnyObject) {
@@ -70,9 +75,14 @@ class ViewController: UIViewController {
         let upper = UInt32((n*n)-1)
         for _ in 0...n {
             let b = buttonArray[Int(arc4random_uniform(upper))]
-            print("Touched \(b.tag)")
             b.sendActionsForControlEvents(.TouchUpInside)
         }
+        shareGame = movesStack
+        movesStack.removeAll()
+    }
+    
+    @IBAction func shareTapped(sender: AnyObject) {
+        share(false)
     }
     
     @IBAction func undo(sender: AnyObject) {
@@ -97,8 +107,8 @@ class ViewController: UIViewController {
     func createAndAddButton(index:Int, row:Int, w:CGFloat, h:CGFloat) ->UIButton{
         let button = UIButton(type: .System)
         
-        let x = (10.0*(CGFloat(index%n)))+CGFloat((CGFloat(index % n)+1.0)*w) - w
-        let y = CGFloat((row)*90)
+        let x = 5+(10.0*(CGFloat(index%n)))+CGFloat((CGFloat(index % n)+1.0)*w) - w
+        let y = CGFloat(row)*(h + 5)
         
         button.frame = CGRectMake(x, y, w, h)
         button.backgroundColor = self.nonhighlighted
@@ -113,7 +123,7 @@ class ViewController: UIViewController {
 
     func setupButtons() {
         let w = (width-(10.0*(CGFloat(n)+1.0)))/CGFloat(n)
-        let h = CGFloat(80.0)
+        let h = self.containerView.frame.size.height/(CGFloat(n)+1.3)
         
         for i in 0..<n*n {
 //            print("i:\(i) n=\(n), i%n = \(i%n), row=\(trunc(Double(i/n)))")
@@ -124,14 +134,24 @@ class ViewController: UIViewController {
    
     func toggleButton(index:Int) {
         let button = buttonArray[index]
-        if button.backgroundColor == self.nonhighlighted {
-            button.backgroundColor = self.highlighted
-            onArr[index] = true
-        } else {
-            button.backgroundColor = self.nonhighlighted
-            onArr[index] = false
-        }
+        let origFrame = button.frame
         
+        UIView.animateWithDuration(0.3, animations: {
+            button.frame = CGRectMake(origFrame.origin.x, origFrame.origin.y, 0, origFrame.size.height)
+        }) { (_) in
+            if button.backgroundColor == self.nonhighlighted {
+                button.backgroundColor = self.highlighted
+                self.onArr[index] = true
+            } else {
+                button.backgroundColor = self.nonhighlighted
+                self.onArr[index] = false
+            }
+            
+            UIView.animateWithDuration(0.3, animations: { 
+                button.frame = origFrame
+            })
+            
+        }
     }
     
     func buttonTouched(sender:UIButton){
@@ -146,8 +166,9 @@ class ViewController: UIViewController {
             changeMiddle(sender.tag)
         }
         
-        
-        checkWin()
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
+            self.checkWin()
+        }
     }
     
     func isLeftEdge(index:Int) -> Bool {
@@ -202,12 +223,34 @@ class ViewController: UIViewController {
             }
         }
         
-        //They won
-        
+        //they must've won
+        share(true)
+    }
+    
+    func share(didWin:Bool) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let winningVC = storyboard.instantiateViewControllerWithIdentifier("WinningViewController") as! WinningViewController
-        winningVC.shareText = "Hey, I just won my puzzlebuttons game in \(self.movesStack.count) moves!"
-        winningVC.movesList = "\(self.movesStack)"
+        
+        var beginGame = "\(self.shareGame)"
+            beginGame = beginGame.stringByReplacingOccurrencesOfString("[", withString: "")
+            beginGame = beginGame.stringByReplacingOccurrencesOfString("]", withString: "")
+            beginGame = beginGame.stringByReplacingOccurrencesOfString(",", withString: "")
+            beginGame = beginGame.stringByReplacingOccurrencesOfString(" ", withString: "")
+        
+        if didWin {
+            winningVC.titleString = "Congratulations"
+            if shareGame.count < 1 {
+            winningVC.shareText = "Hey, I just won my \(n)x\(n)puzzlebuttons game in \(self.movesStack.count) moves!"
+            } else {
+                winningVC.shareText = "Hey, I just won Game:\(n)\(beginGame)puzzlebuttons game in \(self.movesStack.count) moves!"
+            }
+            winningVC.movesList = "\(movesStack)"
+        } else {
+            winningVC.titleString = "Share this game!"
+            winningVC.shareText = "puzzleButtons://\(n)\(shareGame)"
+            winningVC.movesList = "Game #:\(beginGame)"
+        }
+        
         winningVC.moves = "\(self.movesStack.count) moves!"
         
         //get screenshot
@@ -222,6 +265,7 @@ class ViewController: UIViewController {
         winningVC.backgroundImg = screenshot
 
         self.presentViewController(winningVC, animated: false, completion: nil)
+         
     }
 }
 

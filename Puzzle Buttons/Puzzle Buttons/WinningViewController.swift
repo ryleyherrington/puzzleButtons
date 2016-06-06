@@ -11,6 +11,7 @@ import UIKit
 class WinningViewController: UIViewController {
 
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var movesLabel: UILabel!
     @IBOutlet weak var screenshot: UIImageView!
     @IBOutlet weak var movesListLabel: UILabel!
@@ -20,6 +21,7 @@ class WinningViewController: UIViewController {
     var shareText:String = ""
     var moves:String = ""
     var movesList:String = ""
+    var titleString:String = "Congratulations"
     
     var backgroundImg:UIImage = UIImage()
     
@@ -31,12 +33,13 @@ class WinningViewController: UIViewController {
         self.movesLabel.text = moves
         self.movesListLabel.text = movesList
         self.screenshot.image = backgroundImg
+        self.titleLabel.text = titleString
     }
     
     override func viewDidAppear(animated: Bool) {
-        UIView.animateWithDuration(0.3) {
         self.overlay.frame = self.view.frame
-            self.mainView.frame = CGRectMake(0, self.view.frame.size.height-96, self.view.frame.size.width, 96)
+        UIView.animateWithDuration(0.3) {
+            self.mainView.frame = CGRectMake(0, self.view.frame.size.height-168, self.view.frame.size.width, 168)
             self.overlay.alpha = 0.3
         }
     }
@@ -57,7 +60,7 @@ class WinningViewController: UIViewController {
     
     func dismiss (){
         UIView.animateWithDuration(0.3, animations: {
-            self.mainView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 96)
+            self.mainView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 168)
             self.overlay.alpha = 0.0
         }) { (_) in
             self.dismissViewControllerAnimated(false) {
