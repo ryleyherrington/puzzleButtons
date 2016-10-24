@@ -1,5 +1,5 @@
 //
-//  WinningViewController.swift
+//  CheatCodeViewController.swift
 //  Puzzle Buttons
 //
 //  Created by Ryley Herrington on 4/21/16.
@@ -8,70 +8,66 @@
 
 import UIKit
 
-class WinningViewController: UIViewController {
+protocol CustomGameDelegate: class {
+    func startCustomGame(sender: CheatCodeViewController, game:String)
+}
 
+class CheatCodeViewController: UIViewController, UITextViewDelegate{
+    
     var inset:CGFloat = 19.0
     
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var movesLabel: UILabel!
     @IBOutlet weak var screenshot: UIImageView!
-    @IBOutlet weak var overlay: ConfettiView!
+    @IBOutlet weak var overlay: UIView!
+    @IBOutlet weak var gameInputField: UITextField!
     
-    var shareText:String = ""
-    var moves:String = ""
-    var movesList:String = ""
-    var titleString:String = "Congratulations"
+    var titleString:String = "Game Number:"
     var backgroundImg:UIImage = UIImage()
-    var didWin:Bool = true
-   
+    
+    weak var delegate:CustomGameDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupBackgroundImage()
-        self.movesLabel.text = moves
         self.screenshot.image = backgroundImg
         self.titleLabel.text = titleString
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.overlay.frame = self.view.frame
-        self.mainView.layer.cornerRadius = 8
         
         UIView.animate(withDuration: 0.6, delay: 0.0,
                        usingSpringWithDamping: 0.5, //Damping ratios less than 1 will oscillate more
-                       initialSpringVelocity: 0,
-                       options: .curveEaseIn, animations: {
-                        
-            self.mainView.frame = CGRect(x: self.mainView.frame.origin.x,
-                                         y: self.view.frame.size.height/2-self.mainView.frame.size.height/2,
-                                         width: self.mainView.frame.size.width,
-                                         height: 158)
-            self.overlay.alpha = 0.3
+            initialSpringVelocity: 0,
+            options: .curveEaseIn, animations: {
+                
+                self.mainView.frame = CGRect(x: self.mainView.frame.origin.x,
+                                             y: self.view.frame.size.height/2-self.mainView.frame.size.height/2,
+                                             width: self.mainView.frame.size.width, //self.view.frame.size.width-(2*self.inset),
+                    height: 158)
+                self.overlay.alpha = 0.3
         })
-        
-        if self.didWin == true{
-            overlay.startAnimating()
-        }else {
-            overlay.stopAnimating()
-        }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+  
+    
     func setupBackgroundImage(){
         let tapRec = UITapGestureRecognizer()
-        tapRec.addTarget(self, action: #selector(WinningViewController.tappedOverlay))
+        tapRec.addTarget(self, action: #selector(CheatCodeViewController.tappedOverlay))
         
         let upSwipeRec = UISwipeGestureRecognizer()
         upSwipeRec.direction = .up
-        upSwipeRec.addTarget(self, action: #selector(WinningViewController.upSwipe))
+        upSwipeRec.addTarget(self, action: #selector(CheatCodeViewController.upSwipe))
         
         let downSwipeRec = UISwipeGestureRecognizer()
         downSwipeRec.direction = .down
-        downSwipeRec.addTarget(self, action: #selector(WinningViewController.downSwipe))
+        downSwipeRec.addTarget(self, action: #selector(CheatCodeViewController.downSwipe))
         
         
         overlay.addGestureRecognizer(tapRec)
@@ -91,16 +87,15 @@ class WinningViewController: UIViewController {
                 self.mainView.frame = CGRect(x: self.inset, y: -158, width: self.view.frame.size.width, height: 158)
             }
             self.overlay.alpha = 0.0
-            self.overlay.stopAnimating()
-        }, completion: { (_) in
-            self.dismiss(animated: false, completion: nil)
-        }) 
+            }, completion: { (_) in
+                self.dismiss(animated: false, completion: nil)
+        })
     }
     
     func tappedOverlay(){
         dismiss(direction: .down)
     }
-   
+    
     func upSwipe(){
         dismiss(direction: .up)
     }
@@ -109,27 +104,19 @@ class WinningViewController: UIViewController {
         dismiss(direction: .down)
     }
     
-    
-    @IBAction func shareButtonTapped(_ sender: AnyObject) {
-        if shareText == "" {
-            shareText = "Just finished this puzzle! #puzzleButtons"
+    @IBAction func gameTextFieldChanged(_ sender: UITextField) {
+        if (sender.text?.characters) != nil {
+            print("Valid Integer")
+        } else {
+            print("Not Valid Integer")
         }
-        
-        let objectsToShare = [shareText]
-        let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-        
-        
-        self.present(activityVC, animated: true, completion:nil)
-            //TODO:RYLEY this is not the right way to do this. PLS FIX
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { () -> Void in
-//                self.dismiss(direction: .down)
-//            }
-            
-//        })
-        
     }
     
     @IBAction func dismissVC(_ sender: AnyObject) {
+        if (gameInputField.text?.characters.count)! > 0{
+            self.delegate?.startCustomGame(sender: self, game: gameInputField.text!)
+        }
+        
         dismiss(direction: .down)
     }
 }

@@ -8,8 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		7329EA4E1CC93671005129B9 /* WinningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7329EA4D1CC93671005129B9 /* WinningViewController.swift */; };
+		7348AF8D1DB062BC00B661DE /* BorderedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7348AF8C1DB062BC00B661DE /* BorderedView.swift */; };
+		73CF7EE61DADB93B006A966E /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF7EE51DADB93B006A966E /* BorderedButton.swift */; };
+		73CF7F481DAF18AE006A966E /* CheatCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF7F471DAF18AE006A966E /* CheatCodeViewController.swift */; };
+		73DE77861DADAC690031C1D0 /* ConfettiLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DE77831DADAC690031C1D0 /* ConfettiLayer.swift */; };
+		73DE77871DADAC690031C1D0 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DE77841DADAC690031C1D0 /* ConfettiView.swift */; };
+		73DE77881DADAC690031C1D0 /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DE77851DADAC690031C1D0 /* ShapeView.swift */; };
 		73FADC391CB9900D007A5767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FADC381CB9900D007A5767 /* AppDelegate.swift */; };
-		73FADC3B1CB9900D007A5767 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FADC3A1CB9900D007A5767 /* ViewController.swift */; };
+		73FADC3B1CB9900D007A5767 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FADC3A1CB9900D007A5767 /* MainViewController.swift */; };
 		73FADC3E1CB9900D007A5767 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73FADC3C1CB9900D007A5767 /* Main.storyboard */; };
 		73FADC401CB9900D007A5767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73FADC3F1CB9900D007A5767 /* Assets.xcassets */; };
 		73FADC431CB9900D007A5767 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73FADC411CB9900D007A5767 /* LaunchScreen.storyboard */; };
@@ -17,9 +23,15 @@
 
 /* Begin PBXFileReference section */
 		7329EA4D1CC93671005129B9 /* WinningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinningViewController.swift; sourceTree = "<group>"; };
+		7348AF8C1DB062BC00B661DE /* BorderedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedView.swift; sourceTree = "<group>"; };
+		73CF7EE51DADB93B006A966E /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
+		73CF7F471DAF18AE006A966E /* CheatCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheatCodeViewController.swift; sourceTree = "<group>"; };
+		73DE77831DADAC690031C1D0 /* ConfettiLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfettiLayer.swift; path = Classes/ConfettiLayer.swift; sourceTree = "<group>"; };
+		73DE77841DADAC690031C1D0 /* ConfettiView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfettiView.swift; path = Classes/ConfettiView.swift; sourceTree = "<group>"; };
+		73DE77851DADAC690031C1D0 /* ShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShapeView.swift; path = Classes/ShapeView.swift; sourceTree = "<group>"; };
 		73FADC351CB9900D007A5767 /* Puzzle Buttons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Puzzle Buttons.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73FADC381CB9900D007A5767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		73FADC3A1CB9900D007A5767 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		73FADC3A1CB9900D007A5767 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		73FADC3D1CB9900D007A5767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		73FADC3F1CB9900D007A5767 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73FADC421CB9900D007A5767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -37,6 +49,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73CF7EE71DADB93F006A966E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				73DE77891DADAC6D0031C1D0 /* Confetti */,
+				73CF7EE51DADB93B006A966E /* BorderedButton.swift */,
+				7348AF8C1DB062BC00B661DE /* BorderedView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		73DE77891DADAC6D0031C1D0 /* Confetti */ = {
+			isa = PBXGroup;
+			children = (
+				73DE77831DADAC690031C1D0 /* ConfettiLayer.swift */,
+				73DE77841DADAC690031C1D0 /* ConfettiView.swift */,
+				73DE77851DADAC690031C1D0 /* ShapeView.swift */,
+			);
+			name = Confetti;
+			sourceTree = "<group>";
+		};
+		73DE778A1DADAC7C0031C1D0 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				73FADC3A1CB9900D007A5767 /* MainViewController.swift */,
+				7329EA4D1CC93671005129B9 /* WinningViewController.swift */,
+				73CF7F471DAF18AE006A966E /* CheatCodeViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		73FADC2C1CB9900D007A5767 = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +98,13 @@
 		73FADC371CB9900D007A5767 /* Puzzle Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				73CF7EE71DADB93F006A966E /* Views */,
+				73DE778A1DADAC7C0031C1D0 /* ViewControllers */,
 				73FADC381CB9900D007A5767 /* AppDelegate.swift */,
-				73FADC3A1CB9900D007A5767 /* ViewController.swift */,
 				73FADC3C1CB9900D007A5767 /* Main.storyboard */,
 				73FADC3F1CB9900D007A5767 /* Assets.xcassets */,
 				73FADC411CB9900D007A5767 /* LaunchScreen.storyboard */,
 				73FADC441CB9900D007A5767 /* Info.plist */,
-				7329EA4D1CC93671005129B9 /* WinningViewController.swift */,
 			);
 			path = "Puzzle Buttons";
 			sourceTree = "<group>";
@@ -94,11 +136,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Herrington;
 				TargetAttributes = {
 					73FADC341CB9900D007A5767 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 574WJ7QENW;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -138,9 +182,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73FADC3B1CB9900D007A5767 /* ViewController.swift in Sources */,
+				73DE77881DADAC690031C1D0 /* ShapeView.swift in Sources */,
+				7348AF8D1DB062BC00B661DE /* BorderedView.swift in Sources */,
+				73FADC3B1CB9900D007A5767 /* MainViewController.swift in Sources */,
 				7329EA4E1CC93671005129B9 /* WinningViewController.swift in Sources */,
 				73FADC391CB9900D007A5767 /* AppDelegate.swift in Sources */,
+				73DE77871DADAC690031C1D0 /* ConfettiView.swift in Sources */,
+				73DE77861DADAC690031C1D0 /* ConfettiLayer.swift in Sources */,
+				73CF7EE61DADB93B006A966E /* BorderedButton.swift in Sources */,
+				73CF7F481DAF18AE006A966E /* CheatCodeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,10 +230,13 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ryley Herrington (RFFBF78KN3)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -226,10 +279,13 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Ryley Herrington (574WJ7QENW)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -245,7 +301,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -255,10 +313,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 574WJ7QENW;
 				INFOPLIST_FILE = "Puzzle Buttons/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.herrington.Puzzle-Buttons";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -266,10 +326,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 574WJ7QENW;
 				INFOPLIST_FILE = "Puzzle Buttons/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.herrington.Puzzle-Buttons";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
