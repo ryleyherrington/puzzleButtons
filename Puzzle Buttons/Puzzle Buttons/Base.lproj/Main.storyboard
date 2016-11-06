@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,6 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DoZ-oG-28v" customClass="BorderedButton" customModule="Puzzle_Buttons" customModuleProvider="target">
+                                <rect key="frame" x="288" y="61.5" width="71" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="DYT-gs-Exw"/>
                                     <constraint firstAttribute="width" constant="94" id="nMc-L6-efc"/>
@@ -40,6 +44,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V5P-hr-ncB" customClass="BorderedButton" customModule="Puzzle_Buttons" customModuleProvider="target">
+                                <rect key="frame" x="16" y="59.5" width="72" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="94" id="DaO-Gr-vh6"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="72" id="ZFo-SE-gjW"/>
@@ -63,13 +68,17 @@
                                     <action selector="resetGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="71f-Jb-XwR"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mlk-Fr-xdK"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mlk-Fr-xdK">
+                                <rect key="frame" x="6" y="111.5" width="363" height="505.5"/>
+                            </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Puzzle Buttons" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ana-ij-ngC">
+                                <rect key="frame" x="83.5" y="20" width="209" height="33.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.95294117647058818" green="0.55294117647058827" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5Mu-hj-VnD">
+                                <rect key="frame" x="127" y="61.5" width="122" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="Oj3-rD-epr"/>
                                     <constraint firstAttribute="width" constant="122" id="nhM-C7-DCD"/>
@@ -90,8 +99,10 @@
                                 </connections>
                             </segmentedControl>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BqR-3L-pp4">
+                                <rect key="frame" x="6" y="629" width="363" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFz-r2-A4W" customClass="BorderedButton" customModule="Puzzle_Buttons" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="72" id="BoA-dg-Pyc"/>
                                             <constraint firstAttribute="height" constant="30" id="uPh-sC-FdN"/>
@@ -106,6 +117,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oo-OQ-y0Q">
+                                        <rect key="frame" x="72" y="0.0" width="219" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="6s9-8f-yJG"/>
                                             <constraint firstAttribute="width" constant="94" id="Bn5-ak-jiM"/>
@@ -129,6 +141,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIo-iH-viy" customClass="BorderedButton" customModule="Puzzle_Buttons" customModuleProvider="target">
+                                        <rect key="frame" x="291" y="0.0" width="72" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="72" id="DIe-QH-BkB"/>
                                             <constraint firstAttribute="height" constant="30" id="bmL-Re-24q"/>
@@ -198,14 +211,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SO1-oN-VQk"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SO1-oN-VQk">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9x-6G-LF1" customClass="ConfettiView" customModule="Puzzle_Buttons" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lba-pB-NTc">
-                                <frame key="frameInset" minX="35" minY="300" width="305" height="158"/>
+                                <rect key="frame" x="35" y="300" width="305" height="158"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bho-JC-oC4" customClass="BorderedButton" customModule="Puzzle_Buttons" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="120" width="289" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="D4L-PI-PTs"/>
                                         </constraints>
@@ -219,6 +236,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SA0-tn-P4X">
+                                        <rect key="frame" x="8" y="8" width="289" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="139" id="OCe-gN-OG9"/>
                                             <constraint firstAttribute="height" constant="21" id="gS6-Ca-fmp"/>
@@ -234,6 +252,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ehm-rR-kx9">
+                                        <rect key="frame" x="8" y="37" width="289" height="84"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="139" id="52O-0i-jek"/>
                                             <constraint firstAttribute="width" constant="125" id="H1z-QB-2pm"/>
@@ -320,14 +339,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="waD-88-B4P"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="waD-88-B4P">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <view alpha="0.30000001192092896" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p4e-n1-Pkw">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uy4-9r-Gy1" customClass="BorderedView" customModule="Puzzle_Buttons" customModuleProvider="target">
-                                <frame key="frameInset" minX="35" minY="200" width="305" height="158"/>
+                                <rect key="frame" x="35" y="200" width="305" height="158"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNr-k5-zJk" customClass="BorderedButton" customModule="Puzzle_Buttons" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="120" width="289" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="ZTA-pz-o5n"/>
                                         </constraints>
@@ -340,14 +363,16 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hf3-Mm-w8x">
+                                        <rect key="frame" x="8" y="64" width="289" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
-                                            <action selector="gameTextFieldChanged:" destination="Vgj-OH-pUW" eventType="valueChanged" id="X5E-SP-xjg"/>
+                                            <action selector="cheatCodeChanged:" destination="Vgj-OH-pUW" eventType="editingChanged" id="4Ej-8R-4r6"/>
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Number:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33Y-PX-glo">
+                                        <rect key="frame" x="8" y="8" width="289" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="WOR-DL-bCS"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="139" id="efp-Wf-6hk"/>
@@ -399,12 +424,12 @@
                             <constraint firstItem="waD-88-B4P" firstAttribute="centerY" secondItem="Xyn-a2-B1z" secondAttribute="centerY" id="Wg6-aW-4oz"/>
                             <constraint firstItem="p4e-n1-Pkw" firstAttribute="height" secondItem="waD-88-B4P" secondAttribute="height" id="Ysm-mo-sRJ"/>
                             <constraint firstItem="waD-88-B4P" firstAttribute="centerX" secondItem="Xyn-a2-B1z" secondAttribute="centerX" id="fbT-NR-Evx"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Uy4-9r-Gy1" secondAttribute="trailing" constant="19" id="hOv-AK-aYO"/>
                             <constraint firstItem="waD-88-B4P" firstAttribute="height" secondItem="Xyn-a2-B1z" secondAttribute="height" id="rkQ-gW-SA2"/>
                             <constraint firstItem="waD-88-B4P" firstAttribute="width" secondItem="Xyn-a2-B1z" secondAttribute="width" id="vJl-yS-Cit"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomSpaceConstraint" destination="Vt9-Nk-KRj" id="o4R-2v-WVy"/>
                         <outlet property="gameInputField" destination="Hf3-Mm-w8x" id="CiE-Gz-FFd"/>
                         <outlet property="mainView" destination="Uy4-9r-Gy1" id="ssO-WX-AJV"/>
                         <outlet property="overlay" destination="p4e-n1-Pkw" id="zAH-W7-Cvy"/>

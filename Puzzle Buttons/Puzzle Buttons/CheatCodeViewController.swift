@@ -21,6 +21,7 @@ class CheatCodeViewController: UIViewController, UITextViewDelegate{
     @IBOutlet weak var screenshot: UIImageView!
     @IBOutlet weak var overlay: UIView!
     @IBOutlet weak var gameInputField: UITextField!
+    @IBOutlet weak var bottomSpaceConstraint: NSLayoutConstraint!
     
     var titleString:String = "Game Number:"
     var backgroundImg:UIImage = UIImage()
@@ -33,21 +34,21 @@ class CheatCodeViewController: UIViewController, UITextViewDelegate{
         setupBackgroundImage()
         self.screenshot.image = backgroundImg
         self.titleLabel.text = titleString
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.overlay.frame = self.view.frame
         
+        self.bottomSpaceConstraint.constant = -358
         UIView.animate(withDuration: 0.6, delay: 0.0,
                        usingSpringWithDamping: 0.5, //Damping ratios less than 1 will oscillate more
             initialSpringVelocity: 0,
             options: .curveEaseIn, animations: {
-                
-                self.mainView.frame = CGRect(x: self.mainView.frame.origin.x,
-                                             y: self.view.frame.size.height/2-self.mainView.frame.size.height/2,
-                                             width: self.mainView.frame.size.width, //self.view.frame.size.width-(2*self.inset),
-                    height: 158)
+//                self.mainView.frame = CGRect(x: self.mainView.frame.origin.x,
+//                                             y: self.view.frame.size.height/2-self.mainView.frame.size.height/2,
+//                                             width: self.mainView.frame.size.width,
+  //                                           height: 158)
+                self.view.layoutIfNeeded()
                 self.overlay.alpha = 0.3
         })
     }
@@ -80,11 +81,10 @@ class CheatCodeViewController: UIViewController, UITextViewDelegate{
     
     func dismiss(direction: UISwipeGestureRecognizerDirection){
         UIView.animate(withDuration: 0.2, animations: {
-            
             if direction == .down {
-                self.mainView.frame = CGRect(x: self.inset, y: self.view.frame.size.height, width: self.view.frame.size.width-self.inset, height: 158)
+                self.mainView.frame = CGRect(x: self.inset, y: self.view.frame.size.height, width: self.view.frame.size.width-self.inset*2, height: 158)
             } else  {
-                self.mainView.frame = CGRect(x: self.inset, y: -158, width: self.view.frame.size.width, height: 158)
+                self.mainView.frame = CGRect(x: self.inset, y: -158, width: self.view.frame.size.width-self.inset*2, height: 158)
             }
             self.overlay.alpha = 0.0
             }, completion: { (_) in
@@ -104,12 +104,8 @@ class CheatCodeViewController: UIViewController, UITextViewDelegate{
         dismiss(direction: .down)
     }
     
-    @IBAction func gameTextFieldChanged(_ sender: UITextField) {
-        if (sender.text?.characters) != nil {
-            print("Valid Integer")
-        } else {
-            print("Not Valid Integer")
-        }
+    @IBAction func cheatCodeChanged(_ sender: UITextField) {
+        self.gameInputField.text = self.gameInputField.text?.trimmingCharacters(in: NSCharacterSet(charactersIn: "0123456789").inverted)
     }
     
     @IBAction func dismissVC(_ sender: AnyObject) {
@@ -118,5 +114,6 @@ class CheatCodeViewController: UIViewController, UITextViewDelegate{
         }
         
         dismiss(direction: .down)
+        
     }
 }

@@ -19,6 +19,9 @@ class MainViewController: UIViewController, CustomGameDelegate {
     var width:CGFloat = 0
     var height:CGFloat = 0
     
+    //Onboarding
+    var onboardingVC: OnboardingViewController!
+    
     //Colors
     var nonhighlighted = UIColor ( red: 0.4789, green: 0.0, blue: 0.4788, alpha: 1.0 )
     var highlighted    = UIColor.white
@@ -44,7 +47,11 @@ class MainViewController: UIViewController, CustomGameDelegate {
    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-    
+  
+        if UserDefaults().bool(forKey: "hasSeenOnboarding") == false {
+            self.showOnboarding()
+        }
+        
         if buttonArray.count <= 0 {
             setupButtons()
         }
@@ -57,7 +64,46 @@ class MainViewController: UIViewController, CustomGameDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         gameString = ""
     }
-   
+    
+    func showOnboarding(){
+        let color = UIColor.darkGray
+        let firstPage = OnboardingContentViewController(title: "Welcome to Puzzle Buttons!", body: "This game is pretty simple. Manipulate the buttons to change from purple to white! ", backgroundImage: UIImage(named:"onboarding1"), image: nil, buttonText: "Next", action: nil)
+        firstPage?.movesToNextViewController = true
+        firstPage?.baseColor = color
+        firstPage?.isFirst = true
+        
+        let secondPage = OnboardingContentViewController(title: "Oh before I forget...", body: "There is a tiny issue... every button toggles all nearby buttons as well!", backgroundImage: UIImage(named:"onboarding2"), image:nil, buttonText: "Next", action: nil)
+        secondPage?.movesToNextViewController = true
+        secondPage?.baseColor = color
+        secondPage?.isFirst = false
+        
+        let thirdPage = OnboardingContentViewController(title: "Share any game you want!", body: "See if you can find the input field to try a new game.", backgroundImage: UIImage(named:"onboarding3"), image:nil, buttonText: "Done", action:{
+            self.handleOnboardingCompletion()
+        })
+
+        thirdPage?.movesToNextViewController = true
+        thirdPage?.baseColor = color
+        thirdPage?.isFirst = false
+        
+        self.onboardingVC = OnboardingViewController.onboard(withBackgroundImage: nil, contents: [firstPage, secondPage, thirdPage])
+        self.onboardingVC.baseColor = UIColor.lightGray
+        self.onboardingVC.shouldFadeTransitions = true
+        self.onboardingVC.fadePageControlOnLastPage = true
+        self.onboardingVC.swipingEnabled = true
+        self.onboardingVC.allowSkipping = false
+        self.onboardingVC.skipHandler =  { (_) -> () in
+            self.handleOnboardingCompletion()
+        }
+        self.present(self.onboardingVC, animated: true) { () -> Void in
+            print("showed onboarding")
+        }
+    }
+    
+    func handleOnboardingCompletion() {
+        UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
+        onboardingVC.dismiss(animated: true, completion: nil)
+    }
+    
     func loadGame(_ gameNumber:String){
         var game = gameNumber
         
@@ -73,9 +119,27 @@ class MainViewController: UIViewController, CustomGameDelegate {
         }
         
         let r = String(game.characters.dropFirst(1))
+        var overTen = false
+        
         for c in r.characters{
-            let intVal = Int("\(c)")
-            touchButtonWithIndex(intVal!)
+            var intVal = Int("\(c)")
+            intVal = intVal!%((n*n)-1)
+            if intVal == 1 && n > 3{
+                overTen = true
+            } else {
+                if overTen == true {
+                    intVal = intVal! + 10
+                }
+                if intVal! > n*n {
+                    intVal = intVal! - 10
+                    toggleButton(1)
+                }
+                overTen = false
+                toggleButton(intVal!)
+            }
+            
+            
+            
         }
         
     }
@@ -112,6 +176,16 @@ class MainViewController: UIViewController, CustomGameDelegate {
         shareGame.removeAll()
         random = false
     }
+   
+    func getHighlighted() -> [Int] {
+        var hiButtons:[Int] = []
+        for b in buttonArray {
+            if b.backgroundColor == self.highlighted {
+                hiButtons.append(b.tag)
+            }
+        }
+        return hiButtons
+    }
     
     @IBAction func resetGame(_ sender: AnyObject) {
         resetHelper()
@@ -123,10 +197,14 @@ class MainViewController: UIViewController, CustomGameDelegate {
         setupButtons()
         let upper = UInt32((n*n)-1)
         for _ in 0...n*n {
-            let b = buttonArray[Int(arc4random_uniform(upper))]
+            let idx = Int(arc4random_uniform(upper))
+            let b = buttonArray[idx]
             b.sendActions(for: .touchUpInside)
         }
-        shareGame = movesStack
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(2.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) { () -> Void in
+            self.shareGame = self.getHighlighted()
+        }
         movesStack.removeAll()
         random = true
     }
@@ -181,7 +259,7 @@ class MainViewController: UIViewController, CustomGameDelegate {
     }
 
     func setupButtons() {
-        let w = (width-(10.0*(CGFloat(n)+1.0)))/CGFloat(n)
+        let w = (width-(10.0*(CGFloat(n)+1.0)))/CGFloat(n)-1.3
         let h = self.containerView.frame.size.height/(CGFloat(n)+1.3)
         
         
@@ -298,29 +376,31 @@ class MainViewController: UIViewController, CustomGameDelegate {
         beginGame = beginGame.replacingOccurrences(of: " ", with: "")
         
         winningVC.didWin = didWin
-       
+     
         if didWin {
             winningVC.titleString = "Congratulations"
             
             if shareGame.count < 1 && self.movesStack.count > 1{
             winningVC.shareText = "Hey, I just won my \(n)x\(n)puzzlebuttons game in \(self.movesStack.count) moves!"
             } else {
-                winningVC.shareText = "Hey, I just won game #\(beginGame) in #puzzlebuttons!"
+                winningVC.shareText = "Hey, I just won game #\(n)\(beginGame) in #puzzlebuttons!"
             }
         } else if beginGame == ""{
             winningVC.titleString = "Share this game!"
             winningVC.shareText = "Checkout Puzzle Buttons on the app store."
         } else {
             winningVC.titleString = "Share this game!"
-            winningVC.shareText = beginGame
+            winningVC.shareText = "\(n)\(beginGame)"
         }
        
-        //TODO:FIX THIS RYLEY THIS IS COMPLETE SHIT
-        
-        if beginGame != "" && self.movesStack.count != 0 {
-                winningVC.moves = "Game #\(beginGame)"
+        if (beginGame != "" && self.movesStack.count != 0)  || random == true{
+                winningVC.moves = "Game #\(n)\(beginGame)"
         } else if self.movesStack.count > 0 {
+            if self.movesStack.count == 1{
+                winningVC.moves = "\(self.movesStack.count) move!"
+            } else {
                 winningVC.moves = "\(self.movesStack.count) moves!"
+            }
         } else {
             winningVC.moves = "Checkout Puzzle Buttons on the app store."
         }

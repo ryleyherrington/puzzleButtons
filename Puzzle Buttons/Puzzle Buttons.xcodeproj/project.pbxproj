@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73162F951DCCF58A009871CB /* OnboardingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73162F921DCCF58A009871CB /* OnboardingContentViewController.m */; };
+		73162F961DCCF58A009871CB /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73162F941DCCF58A009871CB /* OnboardingViewController.m */; };
 		7329EA4E1CC93671005129B9 /* WinningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7329EA4D1CC93671005129B9 /* WinningViewController.swift */; };
 		7348AF8D1DB062BC00B661DE /* BorderedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7348AF8C1DB062BC00B661DE /* BorderedView.swift */; };
 		73CF7EE61DADB93B006A966E /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CF7EE51DADB93B006A966E /* BorderedButton.swift */; };
@@ -22,6 +24,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		73162F8F1DCCF58A009871CB /* Puzzle Buttons-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Puzzle Buttons-Bridging-Header.h"; sourceTree = "<group>"; };
+		73162F911DCCF58A009871CB /* OnboardingContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingContentViewController.h; sourceTree = "<group>"; };
+		73162F921DCCF58A009871CB /* OnboardingContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingContentViewController.m; sourceTree = "<group>"; };
+		73162F931DCCF58A009871CB /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingViewController.h; sourceTree = "<group>"; };
+		73162F941DCCF58A009871CB /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingViewController.m; sourceTree = "<group>"; };
 		7329EA4D1CC93671005129B9 /* WinningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WinningViewController.swift; sourceTree = "<group>"; };
 		7348AF8C1DB062BC00B661DE /* BorderedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedView.swift; sourceTree = "<group>"; };
 		73CF7EE51DADB93B006A966E /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
@@ -49,6 +56,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7396178F1DCD147E00CFCFC3 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				73162F911DCCF58A009871CB /* OnboardingContentViewController.h */,
+				73162F921DCCF58A009871CB /* OnboardingContentViewController.m */,
+				73162F931DCCF58A009871CB /* OnboardingViewController.h */,
+				73162F941DCCF58A009871CB /* OnboardingViewController.m */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
 		73CF7EE71DADB93F006A966E /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,9 +90,11 @@
 		73DE778A1DADAC7C0031C1D0 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7396178F1DCD147E00CFCFC3 /* Onboarding */,
 				73FADC3A1CB9900D007A5767 /* MainViewController.swift */,
 				7329EA4D1CC93671005129B9 /* WinningViewController.swift */,
 				73CF7F471DAF18AE006A966E /* CheatCodeViewController.swift */,
+				73162F8F1DCCF58A009871CB /* Puzzle Buttons-Bridging-Header.h */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -183,12 +203,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				73DE77881DADAC690031C1D0 /* ShapeView.swift in Sources */,
+				73162F961DCCF58A009871CB /* OnboardingViewController.m in Sources */,
 				7348AF8D1DB062BC00B661DE /* BorderedView.swift in Sources */,
 				73FADC3B1CB9900D007A5767 /* MainViewController.swift in Sources */,
 				7329EA4E1CC93671005129B9 /* WinningViewController.swift in Sources */,
 				73FADC391CB9900D007A5767 /* AppDelegate.swift in Sources */,
 				73DE77871DADAC690031C1D0 /* ConfettiView.swift in Sources */,
 				73DE77861DADAC690031C1D0 /* ConfettiLayer.swift in Sources */,
+				73162F951DCCF58A009871CB /* OnboardingContentViewController.m in Sources */,
 				73CF7EE61DADB93B006A966E /* BorderedButton.swift in Sources */,
 				73CF7F481DAF18AE006A966E /* CheatCodeViewController.swift in Sources */,
 			);
@@ -313,12 +335,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 574WJ7QENW;
 				INFOPLIST_FILE = "Puzzle Buttons/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.herrington.Puzzle-Buttons";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Puzzle Buttons/Puzzle Buttons-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -326,12 +352,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 574WJ7QENW;
 				INFOPLIST_FILE = "Puzzle Buttons/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.herrington.Puzzle-Buttons";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Puzzle Buttons/Puzzle Buttons-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
